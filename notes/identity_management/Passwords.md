@@ -60,7 +60,7 @@ Operational issues with passwords are as follow:
 
 ## User Authentication with Passwords
 
-![identity_protocol](/notes/assets/identity_management/identity_protocol.jpg)
+![identity_protocol](/notes/assets/identity_management/identity_protocol.PNG)
 
 People often choose passwords from a small set:
 
@@ -72,13 +72,13 @@ People often choose passwords from a small set:
 
 ## Basic Password Protocol
 
-![basic_protocol](/notes/assets/identity_management/basic_protocol.jpg)
+![basic_protocol](/notes/assets/identity_management/basic_protocol.PNG)
 
 Problems with basic password protocol: compromise of server exposes all passwords as passwords are stored in the clear
 
 ## Hashed Password Protocol
 
-![hash_protocol](/notes/assets/identity_management/hash_protocol.jpg)
+![hash_protocol](/notes/assets/identity_management/hash_protocol.PNG)
 
 Passwords are stored as a hash, meaning that a compromise of a server only reveals hashed passwords that are not usable. As all real hash functions contain the remote chance of collisions, a false positive can be sent to a hacker trying to gain access
 
@@ -107,7 +107,7 @@ Recommended salt length is 64 bits
 
 Batch attack time complexity is now $O(|Dict| x F|)$
 
-![salt_pw](/notes/identity_management/assets/salt_pw)
+![salt_pw](/notes/assets/identity_management/salt_pw.PNG)
 
 ## Further Defenses
 
@@ -115,7 +115,7 @@ Batch attack time complexity is now $O(|Dict| x F|)$
 
 **Secret salts**: when setting a password choose a short random $r$ (8 bits). When verifying password for A, try all values of $r_A$. This is 128 times slower on average and 256 times slower for the attacker
 
-![further_defenses](/notes/assets/identity_management/further_defenses.jpg)
+![further_defenses](/notes/assets/identity_management/further_defenses.PNG)
 
 ## The Common Password Problem
 
