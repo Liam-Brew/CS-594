@@ -160,7 +160,7 @@ Two approaches to risk management: quantitative and qualitative
 
 ## NIST Risk Process Framework
 
-![nist_risk_process](https://github.com/Liam-Brew/CS-594/blob/master/notes/assets/introduction/nist_risk_process.jpg)
+![nist_risk_process](/notes/assets/introduction/nist_risk_process.jpg)
 
 ### System Characterization
 
