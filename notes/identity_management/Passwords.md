@@ -14,6 +14,10 @@
   - [Preventing Batch Dictionary Attacks](#preventing-batch-dictionary-attacks)
   - [Further Defenses](#further-defenses)
   - [The Common Password Problem](#the-common-password-problem)
+  - [One Time Passwords](#one-time-passwords)
+    - [SecurID System](#securid-system)
+    - [S/Key System](#skey-system)
+    - [SecurID vs. S/Key](#securid-vs-skey)
 
 ## Authentication
 
@@ -23,7 +27,7 @@ Authentication is the process of binding an identity to a subject. There are thr
 2. something you know (e.g. a password)
 3. something you are (e.g. a fingerprint or iris)
 
-Rules of passwords are: 
+Rules of passwords are:
 
 - length
 - composition (such as digits or special characters)
@@ -41,7 +45,7 @@ Usability issues with passwords are as follow:
   - user abilities and training
   - design errors
 
-Operational issues with passwords are as follow: 
+Operational issues with passwords are as follow:
 
 - failure to reset default passwords
 - storing passwords in clear text
@@ -125,3 +129,51 @@ Users tend to use the same password on many sites. The standard solutions are:
 - Single sign-on: OpenID, SAML, ...
 - biometrics
   - problems: not generally secret and cannot be changed
+
+## One Time Passwords
+
+### SecurID System
+
+This consists of a secret $v_k$ and is stateful
+
+**Algorithm G** (setup):
+
+- choose randomly $k = K$
+- output: $s_k = (k,0) ; v_k = (k, 0)$
+
+**Identification**:
+
+![secureid](/notes/assets/identity_management/secureid.PNG)
+
+**Theorem**: if F is a secure PRF then the protocol is secure against eavesdropping. RSA SecurID uses a custom PRF:
+
+![secureid_prf](/notes/assets/identity_management/secureid_prf.PNG)
+
+**Advancing state**: $s_k = (k, i+1)$
+
+- time based: every 60 seconds
+- user action: every button press
+
+### S/Key System
+
+This consists of a public $v_k$ and is stateful
+
+**Notation**: $H^n(x) = H(H(...H(x)...))$ (n times)
+
+**Algorithm G** (setup):
+
+- choose random key $k = K$
+- output: $sk = (k,n) ; vk = H^{(n+1)}(k)$
+
+**Identification**:
+
+![skey_id](/notes/assets/identity_management/skey_id.PNG)
+
+**Theorem**: $S/Key_n$ is secure against eavesdropping provided that H is one-way on n-iterates
+
+### SecurID vs. S/Key
+
+| SecurID                                  | S/Key                                   |
+| ---------------------------------------- | --------------------------------------- |
+| public $v_k$, limited number of auths    | secret $v_k$, unlimited number of auths |
+| often implemented using pencil and paper | often implemented using secure token    |
