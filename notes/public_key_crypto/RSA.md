@@ -31,7 +31,7 @@ The RSA protocol is as follows:
 - **key property**: choose e, d such that $(M^e)^d = M\bmod n$
   - find e, d such that ed = kt + 1
 
-This is secure as $d = e^{-1\bmod t$, therefore the attacker needs to know t
+This is secure as $d = e^{-1}\bmod t$, therefore the attacker needs to know t
 
 For prime p, we know $x^{p-1} = 1 \bmod p for x \in \mathbb{Z}_p^*$
 
