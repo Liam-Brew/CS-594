@@ -50,7 +50,7 @@ A unit for that operation, e.g. 1
 
 - 1 \* a = a * 1 = a
 
-A **multiplicative inverse** $a^-1$ for every element a:
+A **multiplicative inverse** $a^{-1}$ for every element a:
 
 - $a * (a^-1) = 1$
 - e.g. $2^{-1} = 4$
@@ -86,7 +86,7 @@ The size of these subgroups (order of their generators) are divisors of p-1
 
 $$y^2 = x^3 + ax + b$$
 
-Let x, y, a, b are real numbers
+Let x, y, a, b be real numbers
 
 If $4a^3 + 27b^2 \ne 0$, an additive group can be formed out of the points on a curve. The **infinity point** gives the identity of that curve
 

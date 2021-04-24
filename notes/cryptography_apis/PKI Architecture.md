@@ -125,7 +125,7 @@ certBuilder
     .addExtension(
         Extension.subjectKeyIdentifier,
         false,
-        extUtils.createSubjectKeyIdentifier(keyPair.    getPublic()))
+        extUtils.createSubjectKeyIdentifier(keyPair.getPublic()))
     .addExtension(
         Extension.basicConstraints,
         true,
@@ -173,7 +173,7 @@ certBuilder
         false,
         extUtils.createSubjectKeyIdentifier(subjectKey))
     .addExtension(
-        Extension.basicConstrains,
+        Extension.basicConstraints,
         true,
         new BasicConstraints(0))
     .addExtension(
@@ -182,7 +182,7 @@ certBuilder
         CA_USAGE
     );
 
-X509CertificateHolder = certBuilder.build(sigGenerator);
+X509CertificateHolder certHolder = certBuilder.build(sigGenerator);
 
 return new JcaX509CertificateConverter()
     .setProvider("BC")
@@ -197,7 +197,7 @@ This is available only in the Bouncy Castle API. An example use case for this ty
 ContentSigner sigGenerator = getContentSigner(issuerKey);
 
 X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(
-    getDN(issuerCert),
+    toX500Name(issuerCert.getSubjectX500Principal()),
     BigInteger.valueOf(id),
     System.currentTimeInMillis(),
     System.currentTimeInMillis()+duration,
@@ -213,7 +213,7 @@ certBuilder
         false,
         extUtils.createSubjectKeyIdentifier(subjectKey))
     .addExtension(
-        Extension.basicConstrains,
+        Extension.basicConstraints,
         true,
         new BasicConstraints(false))
     .addExtension(
@@ -223,7 +223,7 @@ certBuilder
     .addExtension(
         Extension.extendedKeyUsage,
         false,
-        SERVER_USAGE_EXT)
+        SERVER_USAGE_EXT
     );
 
 /*
@@ -240,7 +240,7 @@ certBuilder
         sans
     );
 
-X509CertificateHolder = certBuilder.build(sigGenerator);
+X509CertificateHolder certHolder = certBuilder.build(sigGenerator);
 
 return new JcaX509CertificateConverter()
     .setProvider("BC")
@@ -300,7 +300,7 @@ GeneralNames sans = new GeneralNames(names.toArray(
     new GeneralName[names.size()])
 );
 
-ExtensionsGenerator extGen = new ExtensionGenerator();
+ExtensionsGenerator extGen = new ExtensionsGenerator();
 
 extGen.addExtension(
     Extension.subjectAlternativeName,
@@ -340,7 +340,7 @@ if (!csr.isSignatureValid(contentVerifier)) {
 
 X509v3CertificateBuilder certBuilder = 
     new JcaX509v3CertificateBuilder(
-        getDN(issuerCert),
+        issuerCert,
         BigInteger.valueOf(id),
         System.currentTimeInMillis(),
         System.currentTimeInMillis()+duration,
@@ -357,7 +357,7 @@ certBuilder
     .addExtension(
         Extension.subjectKeyIdentifier,
         false,
-        extUtils.createSubjectKeyIdentifier(csr.getSubjectKeyPublicKeyInfo()))
+        extUtils.createSubjectKeyIdentifier(csr.getSubjectPublicKeyInfo()))
     .addExtension(
         Extension.basicConstraints,
         true,
@@ -367,10 +367,10 @@ certBuilder
         true,
         END_USAGE);
 
-for (Attribute attr : csr.GetAttributes()) {
+for (Attribute attr : csr.getAttributes()) {
     // Process extension request
     if (attr.getAttrType().equals(
-        PKCSObjectIdenfieirs.pkcs_9_at_extensionRequest)) {
+        PKCSObjectIdentifiers.pkcs_9_at_extensionRequest)) {
             // Only process SAN extension request
             Extensions extensions = Extensions.getInstance(attr.getAttrValues().getObjectAt(0));
         }
